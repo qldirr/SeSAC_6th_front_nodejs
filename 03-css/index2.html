@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index2.css">
+    <title>CSS 선택자</title>
+</head>
+<body>
+    <h1>기본 선택자 연습</h1>
+    <p>기본 선택자 연습2</p>
+    <span>기본 선택자 연습3</span>
+    <ol>
+        <li id="first">1</li>
+        <li class="second">2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+    <ul>
+        <li class="small">쥐</li>
+        <li class="small dog">강아지</li>
+        <li class="small">고양이</li>
+        <li class="big">호랑이</li>
+        <li class="big">곰</li>
+    </ul>
+
+
+    <!-- 
+        class, id 속성의 올바른 사용법 
+        1. 한 요소에 여러 클래스 사용 가능, 공백으로 구분
+    -->
+    <p class="hello hi bon">안녕하세요</p>
+
+    <!-- 2. 한 요소에 하나의 id 사용 가능 -->
+    <p id="my-hello">안녕하세요</p>
+
+    <!-- 3. 한 요소가 여러 클래스와 하나의 아이디 사용 가능 -->
+    <p class="hello hi bon" id="my-hello">안녕하세요</p>
+
+    <!-- 4. 한 요소가 여러개 아이디 사용 불가 -->
+    <p id="one two">안녕하세요</p>
+</body>
+</html>
