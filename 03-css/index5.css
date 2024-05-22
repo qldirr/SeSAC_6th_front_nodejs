@@ -1,0 +1,44 @@
+/* 웹 폰트(web-font) */
+/* 
+    - 구글 웹폰트, 눈누 웹폰트
+    - 모든 브라우저에서 보는 폰트 통일
+    - 폰트를 다운로드하는 것이 아니라 link태그에 걸려있는 주소에서 폰트를 가져오는 방식
+    - 보통 기본 폰트는 body 태그에 작성
+*/
+@font-face {
+    font-family: 'Ownglyph_eunbyul21-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_eunbyul21-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Ownglyph_ryurue-Rg';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryurue-Rg.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MoveSans-Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/MoveSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSSanTokki20-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 {
+    /* "Hi Melody"글꼴이 없으면 sans-serif를 사용함 */
+    /* font-family: "Hi Melody", sans-serif; */
+    font-family:  'HSSanTokki20-Regular';
+}
+
+div { 
+    font-family: 'Ownglyph_ryurue-Rg';
+}

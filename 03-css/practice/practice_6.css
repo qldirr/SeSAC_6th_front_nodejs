@@ -1,0 +1,45 @@
+form {
+    width: 400px;
+}
+
+h3:hover {
+    background-color: aquamarine;
+    color: blueviolet;
+}
+
+/* focus */
+textarea:focus {
+    width: 100%;
+    background-color: lightskyblue;
+}
+
+/* 
+checked : input태그 속성인 type의 속성값이 checkbox인 input태그가 체크되었을 때 바로 뒤의 형제인 label태그의 for 속성의 속성값이 red인것을 선택  
+*/
+input[type="checkbox"]:checked+label[for="red"] {
+    background-color: red;
+}
+
+input[type="checkbox"]:checked+label[for="blue"] {
+    background-color: blue;
+}
+
+input[type="checkbox"]:checked+label[for="yellow"] {
+    background-color: yellow;
+}
+
+/* active */
+button {
+    float: right;
+    padding: 5px 15px;
+    background-color: #f96666;
+    color: white;
+    font-size: 17px;
+    border-radius: 10px;
+    border: none;
+}
+
+button:active {
+    background-color: gray;
+    color: pink;
+}
