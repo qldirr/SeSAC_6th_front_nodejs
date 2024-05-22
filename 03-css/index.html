@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 참조 방식</title>
+
+    <!-- CSS 참조 방식 2.내장 방식 -->
+    <style>
+        ul {
+            background-color: aqua;
+        }
+
+        /* 다른 태그에 같은 스타일 적용 */
+        h1, h2 {
+            color: pink;
+        }
+    </style>
+
+    <!-- CSS 참조 방식 3.링크 방식 -->
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <!-- CSS 참조 방식 1.인라인 방식 -->
+    <h1 style="color: blue;">CSS 사용법을 익혀봅시다</h1>
+    <h2 style="font-size: larger;">Hello World</h2>
+
+    <ul>
+        <li>one</li>
+        <li>two</li>
+        <li>three</li>
+    </ul>
+
+    <div style="background-color: red; width: 50px; height: 50px;"></div>
+    <div style="background-color: orange; width: 80px; height: 50px;"></div>
+    <div style="background-color: yellow; width: 110px; height: 50px;"></div>
+    <div style="background-color: green; width: 140px; height: 50px;"></div>
+    <div style="background-color: blue; width: 170px; height: 50px;"></div>
+    <div style="background-color: navy; width: 200px; height: 50px;"></div>
+    <div style="background-color: purple; width: 230px; height: 50px;"></div>
+</body>
+</html>
