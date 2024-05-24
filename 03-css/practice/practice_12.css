@@ -1,0 +1,38 @@
+body{
+    background-color: lightgray;
+}
+
+.imgs{
+    text-align: center;
+    position: relative;
+}
+
+img {
+    width: 300px;
+    height: 200px;
+    transform: rotateY(20deg);
+    transform: skewY(20deg);
+}
+
+.img1{
+    position: absolute;
+    top: 150px;
+    left: 30%;
+}
+.img2{
+    position: absolute;
+    top: 150px;
+    left: 20%;
+}
+.img3{
+    position: absolute;
+    top: 150px;
+    left: 10%;
+}
+
+img:hover{
+    transform: rotateY(0);
+    transform: skewY(0);
+    transition: transform 0.5s;
+    z-index: 10;
+}
