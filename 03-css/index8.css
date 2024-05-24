@@ -1,0 +1,19 @@
+/* 
+    overflow
+    - 컨텐츠가 너무 크거나 길어서 크기보다 넘치게된다면?
+    - visible(default) : 벗어난부분 표시
+    - hidden : 벗어난부분 숨김
+    - scroll : 스크롤 생성
+    - auto : 넘친다면 스크롤, 안넘치면 스크롤 없이
+*/
+
+/* overflow-x : 수평방향으로 넘칠때 처리 */
+/* overflow-y : 수직방향으로 넘칠때 처리 */
+
+.box{
+    width: 300px;
+    height: 100px;
+    background-color: skyblue;
+    /* overflow: auto; */
+    overflow-y: scroll;
+}

@@ -1,0 +1,44 @@
+.container{
+    width: 500px;
+    height: 500px;
+    border: 2px black;
+    border-style: solid;
+    position: relative;
+}
+
+
+.item1{
+    position: relative;
+    left: 50px;
+    top: 30px;
+    border: 2px black;
+    border-style: solid;
+    background-color: brown;
+    width: 100px;
+    height: 100px;
+}
+
+.item2{
+    position: absolute;
+    right: 30px;
+    bottom: 100px;
+    border: 2px black;
+    border-style: solid;
+    background-color: yellow;
+    width: 100px;
+    height: 100px;
+}
+
+.item3{
+    position: fixed;
+    right: 100px;
+    top: 100px;
+    border: 2px black;
+    border-style: solid;
+    background-color: tomato;
+    width: 100px;
+    height: 100px;
+}
+
+
+
