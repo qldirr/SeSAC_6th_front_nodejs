@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>viewport</title>
+    <style>
+        .vw{
+            width: 50vw;
+            height: 50vw;
+            background-color: aquamarine;
+        }
+
+        .vh{
+            width: 100vh;
+            height: 100vh;
+            background-color: pink;
+        }
+
+        .parant{
+            width: 300px;
+            height: 100px;
+            background-color: brown;
+        }
+
+        .child{
+            width: 10%;
+            height: 100px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>viewport 단위</h1>
+    <div class="vw">vw</div>
+    <div class="vh">vh</div>
+    <div class="parant">
+        <div class="child">%</div>
+    </div>
+
+    <hr>
+    <h3>vw(viewport width)</h3>
+    <ul>
+        <li>vw는 뷰포트의 너비를 기준</li>
+        <li>뷰포트 너비를 100등분한 단위</li>
+        <li>1vw = 1%너비</li>
+        <li>화면의 너비에 따라 크기 조정</li>
+    </ul>
+
+    <hr>
+    <h3>vh(viewport height)</h3>
+    <ul>
+        <li>vh는 뷰포트의 높이를 기준</li>
+        <li>뷰포트 높이를 100등분한 단위</li>
+        <li>1vh = 1%높이</li>
+        <li>화면의 높이에 따라 크기 조정</li>
+    </ul>
+
+    <hr>
+    <h3>%(percentage)</h3>
+    <ul>
+        <li>'%'는 부모 요소의 크기를 기준</li>
+        <li>부모 요소 크기를 100등분한 단위</li>
+        <li>부모 요소 크기에 따라 크기 조정</li>
+    </ul>
+</body>
+</html>
