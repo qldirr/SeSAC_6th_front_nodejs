@@ -1,0 +1,122 @@
+//함수 : 특정 작업을 수행하기 위해 독립적으로 설계된 코드 집합
+// -함수 정의(선언 : 함수를 생성
+// -호출 : 함수 사용
+// 함수 선언 방식
+// 1. 명시적 함수 선언(함수 선언문)
+// - 함수 이름과 매개변수를 명시하고 함수의 본문을 중괄호로 감싼다
+// - 스크립트 어디서든 호출 가능
+//- function 키워드 사용해 함수 선언
+
+function helloWorld(){  // 함수 정의
+    //return 생략 가능
+    console.log('hell,world');
+}
+
+helloWorld();  //함수 호출
+
+function helloWorld2() {
+    return 'hello,world2'
+}
+
+//return (반환값) : 함수 내부(body, block)코드의 최종 결과값
+//- 최종 결과값을 저장하고 보관하기 위한 키워드
+// return 키워드를 만나면 함수 실행 중단(return다음에 코드 더 작성 의미가 없다고 생각)
+console.log(helloWorld2());   // 함수 결과를 console에 호출
+
+// 2. 함수 표현식
+//- 변수에 익명 함수를 할당(저장)하는 형태
+// - 변수가 선언된 이후에만 호출 가능
+
+// 익명 함수(이름이 없는 함수)
+//-> 이름 지정도 가능, 이경우는 함수 이름은 내부에서만 사용 가능
+//ex)
+// const sayHello = function hello(){
+//     console.log('hello,world3');
+// }
+// sayHello();    //함수 호출
+// hello();   //sayHello변수 안에 있는 함수,ReferenceError, 익명함수는 내부에서만 사용가능
+
+const helloWorld3 = function(){
+    console.log('hello,world3');
+}
+const helloWorld4 = function(){
+    return 'hello,world4'
+}
+helloWorld3();
+helloWorld3();
+helloWorld3();
+helloWorld3();
+helloWorld3();
+helloWorld3();
+console.log(helloWorld4());
+//함수는 여러번 호출 가능
+
+
+//매개변수가 있는 함수
+//매개변수 1개
+function food(text) {
+    return text;
+}
+console.log(food('제육덮밥'));   //제육덮밥
+
+const pizza = '피자는 하와이안 피자'
+console.log(food(pizza));   //피자는 하와이안 피자
+
+const colaPrice = 2000
+console.log(food(colaPrice));   //2000 -> type:number 파라미터는 어떤 형태가 들어가도 상관없음
+
+//매개변수 2개
+function music(name, title) {
+    return `${name} - ${title}`
+}
+console.log(music('iu', '잔소리'));   //iu-잔소리
+console.log(music('day6', '예뻤어'));   //day6-예뻤어
+
+function music2(name, title) {
+    console.log(`${name} - ${title}`);
+}
+
+music2('AKMU', '후라이의 꿈')
+
+//3. 화살표 함수(ES6부터)
+//함수 표현식의 축약형, 간결하게 정의
+// 단일 표현식의 경우에는 중괄호와 return 생략 가능
+// 코드가 길어지면 중괄호와 return명시 해줌
+
+//일반형(단일 표현식)
+// function square(x){
+//     return x*x;
+// }
+//축약형
+const square = (x) => x*x;
+console.log(square(3));   //9
+
+//일반형(여러줄)
+// function triangle(base, height) {
+//     const area = (base*height)/2;
+//     return area
+// }
+//축약형
+const triangle = (base, height) => {
+    const area = (base*height)/2;
+    return area
+}
+console.log(triangle(3,4));  //6
+
+//-----------------------------------------------------------
+
+//호이스팅(hoisting) -> 함수, 변수
+//-js에서 변수 및 함수 선언이 해당 범위의 맨 위로 끌어올려지는 현상
+//- 함수 선언문이 호이스팅
+
+sayHello();   //함수 호출을 정의보다 먼저했음
+function sayHello(){
+    console.log('hello');
+}   //-> 정상 출력
+
+//함수 표현식
+//-> 호이스팅의 대상이 될 수 없음 -> 변수에 함수가 할당되기 때문에 그 이후에만 호출 가능
+// sayHello2()  //ReferenceError
+const sayHello2 = ()=>{
+    console.log('hello2');
+}
