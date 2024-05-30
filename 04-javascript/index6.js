@@ -46,8 +46,6 @@ helloWorld3();
 helloWorld3();
 helloWorld3();
 helloWorld3();
-helloWorld3();
-helloWorld3();
 console.log(helloWorld4());
 //함수는 여러번 호출 가능
 

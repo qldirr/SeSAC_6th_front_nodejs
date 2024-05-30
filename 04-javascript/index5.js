@@ -80,6 +80,7 @@ console.log('안녕'+'하세요');
 console.log('5'-'2');   //3
 console.log('5'*'2');   //10
 console.log('5'/'2');   //2.5
+console.log(5/'2');   //2.5
 
 //증감연산자
 // ++ : 변수 값 1 증가
