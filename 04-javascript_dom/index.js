@@ -26,3 +26,28 @@ console.log('num>', num);   //5
 //2. pass by reference(참조에 의한 전달)
 //- 객체나 배열같은 참조 타입 전달될때 사용
 //- 변수의 메모리 위치(참조)가 전달되므로 함수 내에서 요소를 변경하면 원래 변수도 변경됨
+
+const obj = {
+    one:1,
+    two:2,
+};
+const obj2 = obj;
+console.log(obj, obj2);    //똑같은 값이 복사됨  {one:1, two:2}
+console.log(obj === obj2);   //true
+
+obj.five = 5;
+console.log(obj, obj2);   //{one:1, two:2, five:5}
+console.log(obj === obj2);   //true
+
+// obj와 obj2는 현재 데이터도 같고 참조값(address, 주소)도 같음
+
+//-----------------------------------------------------
+const obj3 = {one:1,two:2};
+const obj4 = {one:1,two:2};
+console.log(obj3, obj4);   //{one:1,two:2}
+console.log(obj3 === obj4);   //false
+// obj3와 obj4는 현재 데이터가 같지만 서로 다른 별도의 객체 -> 참조값(address, 주소)가 다름
+
+obj3.five = 5;
+console.log(obj3, obj4);   //{one:1,two:2,five:5} , {one:1,two:2}
+console.log(obj3 === obj4);   //false

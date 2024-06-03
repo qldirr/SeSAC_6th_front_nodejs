@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>실습 14. 방명록 만들기</title>
+  </head>
+  <body>
+    <h1>여기는 방명록!!</h1>
+    <form>
+      <label for="writer">작성자</label>
+      <input type="text" id="writer" autocomplete="off" />
+      <br />
+      <br />
+
+      <label for="content">내용</label>
+      <input type="text" id="content" style="width: 500px" autocomplete="off" />
+      <br />
+      <br />
+
+      <button type="button" onclick="writeNote();">등록</button>
+    </form>
+
+    <br />
+    <br />
+
+    <table id="table" border="1" cellpadding="10" cellspacing="1">
+      <tr>
+        <th>작성자</th>
+        <th>내용</th>
+        <th>작성일</th>
+      </tr>
+      <!-- 
+        코드 추가 예시
+        <tr>
+          <td>홍길동</td>
+          <td>하이</td>
+          <td>2022-10-05 12:34</td>
+        </tr>
+      -->
+    </table>
+
+    <script>
+      // TODO: practice14_설명.png 이미지의 조건을 만족하는 js 코드 작성
+      // writeNote() 함수를 미리 정의해두었습니다.
+
+      const table = document.querySelector("#table")
+      const writer = document.querySelector("#writer")
+      const content = document.querySelector("#content")
+      
+      const NOTE = "note";
+      let noteObj = [];
+
+      let savedNote = localStorage.getItem(NOTE);
+
+      // [등록] 버튼 클릭시 writeNote() 함수가 실행되도록 인라인 방식으로 미리 설정해 두었습니다.
+      function writeNote() {
+        console.log("등록")
+        if(writer.value.trim()==""||content.value.trim()==""){
+          alert("내용을 입력해주세요")
+          return;
+        }
+
+        // 작성일시
+        const now = new Date();
+        let wYear = now.getFullYear();
+        let wMonth = now.getMonth() + 1;
+        let wDate = now.getDate()
+        let wHour = now.getHours()
+        let wMin = now.getMinutes()
+
+        let wDay = `${wYear}-${wMonth}-${wDate} ${wHour}:${wMin}` 
+
+        // 로컬스토리지에 방명록 내용 저장
+        saveNote(writer.value, content.value, wDay)
+        writer.value = "";
+        content.value = "";
+        writer.focus();
+      }
+
+      function saveNote(writer, content, day){
+        let newNoteObj = {
+          writer : writer,
+          content : content,
+          day : day
+        }
+
+        // 새 배열 추가
+        noteObj.push(newNoteObj)
+        registerNote(newNoteObj);
+        // 로컬스토리지 저장
+        noteLocalSave()
+
+      }
+
+      // 로컬스토리지에 저장
+      function noteLocalSave(){
+        localStorage.setItem(NOTE, JSON.stringify(noteObj))
+      }
+
+      function registerNote(note){
+        // 행추가
+        let newRow = table.insertRow();
+
+        // 셀추기
+        let newCell1 = newRow.insertCell(0)
+        let newCell2 = newRow.insertCell(1)
+        let newCell3 = newRow.insertCell(2)
+
+        // 내용 넣기
+        newCell1.innerText = note.writer
+        newCell2.innerText = note.content
+        newCell3.innerText = note.day
+      }
+
+      if(savedNote !== null) {
+        const parsedNote = JSON.parse(savedNote);
+        noteObj = parsedNote;
+        noteObj.forEach(registerNote)
+      }
+    </script>
+  </body>
+</html>

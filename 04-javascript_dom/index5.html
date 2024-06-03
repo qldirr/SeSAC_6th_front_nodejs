@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>addEventListener</title>
+    <script defer src="index5.js"></script>
+    <style>
+        body {
+            height: 2000px;
+        }
+
+        .btn {
+            width: 80px;
+            height: 35px;
+            border-radius: 13px;
+            text-align: center;
+            line-height: 35px;
+            font-weight: 700;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .btn-black {
+            background-color: rgb(44, 44, 44);
+            color: #fff;
+        }
+
+        .btn-green {
+            background-color: green;
+            color: yellow;
+        }
+
+        .btn-blue {
+            background-color: rgb(73, 73, 255);
+            color: bisque;
+        }
+
+        .btn-red {
+            background-color: orangered;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <h1 onclick="alert('제목 클릭')">제목 클릭</h1> -->
+    <h1 onclick="clickH1()">js event</h1>
+    <div class="btn btn-black">btn1</div>
+    <div class="btn btn-green">btn2</div>
+    <div class="btn btn-blue">btn3</div>
+    <div class="btn btn-red">btn4</div>
+    <div id="container">btn5</div>
+
+    <button>click me</button>
+    <input type="text">
+
+    <h2>todo list</h2>
+    <form id="todo-form">
+        <input type="text" name="todo">
+        <button>ADD</button>
+    </form>
+    <ul class="todos"></ul>
+
+    <hr>
+    <h2>변경 이벤트</h2>
+    <input type="text" id="change-input">
+    <div class="intro"></div>
+</body>
+
+</html>
