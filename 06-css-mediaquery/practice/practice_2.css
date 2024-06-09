@@ -1,0 +1,52 @@
+header{
+    background-color: lightblue;
+    position: fixed;
+    width: 100%;
+}
+
+.igloo{
+    position: absolute;
+    color: white;
+    left: 100px;
+    top: 5px;
+}
+
+.bars{
+    position: absolute;
+    right: 50px;
+}
+
+nav > ul{
+    display: flex;
+    justify-content: center;
+    gap: 0 20px;
+    list-style: none;
+}
+
+@media screen and (max-width: 768px) {
+    .igloo{
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bars{
+        position: absolute;
+        display: block;
+    }
+
+    nav>ul{
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    li{
+        width: 100%;
+        text-align: center;
+    }
+
+    li:hover{
+        background-color: black;
+        color: white;
+    }
+}
