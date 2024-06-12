@@ -1,0 +1,3 @@
+# node_modules 폴더 내 파일들과 확장자가 log 인 파일을 git 에 올리지마
+node_modules/
+*.log

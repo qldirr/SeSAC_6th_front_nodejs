@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- EJS 문법 : '<%= %>' (값 출력, 이 파일을 렌더링 할때 변수도 같이 내려줌) -->
+    <title>project<%= title  %></title>   
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="/"><h1>My Blog</h1></a>
+        </div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/create">Create</a></li>
+        </ul>
+    </nav>
+
+    <div>
+        <h1>HOME</h1>
+    </div>
+
+    <%= 10-2 %>
+    <%- 10-2 %>
+    <%= true ? '참' : '거짓' %>
+    <%# 주석 %>
+    <% for(let i = 0; i < 5; i++){ %>
+        <h1>Hello</h1>
+    <% } %>
+
+
+</body>
+</html>

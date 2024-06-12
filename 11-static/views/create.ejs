@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <!-- 다른 view 파일 불러오기 -->
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="content">
+        <form action="">
+            <label for="title">Blog Title : </label>
+            <input type="text" id="title" required> <br>
+
+            <label for="snippet">Blog Snippet : </label>
+            <input type="text" id="snippet"> <br>
+
+            <label for="body">Blog Body : </label>
+            <textarea name="" id="body" cols="30" rows="10" required></textarea>
+
+            <button>Submit</button>
+        </form>
+    </div>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
