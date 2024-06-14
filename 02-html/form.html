@@ -20,14 +20,16 @@
         <!-- 
             form 요소 : 폼 태그 안에 있는 사용자의 입력값을 받는 요소
             input, textarea, select ... 태그들에는 name 속성을 가질 수 있음, 서버와 연관
+            - name 속성 : 폼 요소(input, textarea ....)에 각각 이름 지정, 서버가 어떤 폼 요소에 어떤 값이 입력되었는지를 구별해줄 수 있는 key 역할
         -->
 
         <!-- input 태그 
             - disabled 속성 : 편집 불가능하도록 막음 
             - placeholder 속성 : 미리보기 텍스트(안내 문구)
         -->
-        Text <input type="text"> <br>
+        Text <input type="text" autofocus> <br>
         Text2 <input type="text" disabled> <br>
+        Text3 <input type="text" readonly value="안녕"> <br>
 
         <!-- 
             label태그의 for 속성값과 input태그의 id 속성값을 일치시키면 label글씨를 클릭했을 때 input창에 포커싱
@@ -90,6 +92,13 @@
             </optgroup>
         </select>
         <br>
+
+        <!-- fieldset: 그룹화, legend: 그룹화한 제목 -->
+        <fieldset>
+            <legend>개인 정보</legend>
+            <label for="name">이름: </label><input type="text" id="name"/> <br>
+            <label for="age">나이: </label><input type="text" id="age"/> <br>
+        </fieldset>
 
         <!-- 
             버튼

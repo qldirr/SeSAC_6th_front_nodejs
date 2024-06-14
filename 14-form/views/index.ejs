@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+
+    <!-- name 속성 : 폼 요소(input, textarea ....)에 각각 이름 지정, 서버가 어떤 폼 요소에 어떤 값이 입력되었는지를 구별해줄 수 있는 key 역할 -->
+    <h2>GET 방식으로 요청하는 폼</h2>
+    <form action="/getForm" method="get">
+        <input type="text" name="id" placeholder="아이디">
+        <input type="password" name="pw" placeholder="비밀번호">
+        <button type="submit">GET 방식으로 폼 제출</button>
+    </form>
+
+    <h2>POST 방식으로 요청하는 폼</h2>
+    <form action="/postForm" method="post">
+        <input type="text" name="id" placeholder="아이디">
+        <input type="password" name="pw" placeholder="비밀번호">
+        <button type="submit">POST 방식으로 폼 제출</button>
+    </form>
+</body>
+
+</html>
