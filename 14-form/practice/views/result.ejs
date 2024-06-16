@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        span{
+            color: blue;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <div><span><%= userInfo.name %></span>님 환영합니다!</div>
+    <div>성별 : <span><%= userInfo.gender %></span></div>
+    <div>생년월일 :
+        <span><%= userInfo.year %>년</span>
+        <span><%= userInfo.month %>월</span>
+        <span><%= userInfo.day %>일</span>
+    </div>
+    <div>관심사 :
+        <span><%= userInfo.interest %></span>
+    </div>
+    <div>좋아하는 색상</div>
+    <div style="width: 50px; height: 50px; background-color: <%= userInfo.color %>"></div>
+    <div>좋아하는 숫자 :
+        <span><%= userInfo.score %></span>
+    </div>
+
+    <br>
+    <br>
+    <a href="/">홈으로 이동</a>
+</body>
+</html>

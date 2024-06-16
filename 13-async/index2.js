@@ -34,39 +34,39 @@
 
 // ---------------------------------------------------------------
 // 앞의 index.js에서 콜백함수를 사용해 작성한 코드를 Promise를 이용해 바꿔보자
-// let product, price;
+let product, price;
 
-// function goMart(){
-//     console.log('마트에 가서 어떤 음료를 살지 고민');
-// }
+function goMart(){
+    console.log('마트에 가서 어떤 음료를 살지 고민');
+}
 
-// function pickDrink(){
-//     return new Promise((resolve, reject) => {
-//         setTimeout(function(){
-//             console.log('고민 끝');
-//             product = '제로 콜라'
-//             price = 2000
-//             // resolve();
+function pickDrink(){
+    return new Promise((resolve, reject) => {
+        setTimeout(function(){
+            console.log('고민 끝');
+            product = '제로 콜라'
+            price = 2000
+            // resolve();
 
-//             if (price <= 3000){
-//                 resolve()
-//             } else {
-//                 reject()
-//             }
-//         }, 3000)
-//     })
-// }
+            if (price <= 3000){
+                resolve()
+            } else {
+                reject()
+            }
+        }, 3000)
+    })
+}
 
-// function pay() {
-//     console.log(`상품명:${product}, 가격:${price}`);
-// }
+function pay() {
+    console.log(`상품명:${product}, 가격:${price}`);
+}
 
-// function noPay(){
-//     console.log('금액 부족');
-// }
+function noPay(){
+    console.log('금액 부족');
+}
 
-// goMart();
-// pickDrink().then(pay).catch(noPay);
+goMart();
+pickDrink().then(pay).catch(noPay);
 // 마트에 가서 어떤 음료를 살지 고민
 // 고민 끝
 // 상품명:제로 콜라, 가격:2000
