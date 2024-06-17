@@ -1,13 +1,13 @@
-const express = require('express')   
-const app = express();    
-const PORT = 3000;   
+const express = require('express')
+const app = express();
+const PORT = 3000;
 
-app.set('view engine', 'ejs') 
-app.set('views', './views')  
+app.set('view engine', 'ejs')
+app.set('views', './views')
 
 // req.body 를 보여주기 위한 미들웨어
-app.use(express.urlencoded({ extended: true }))  
-app.use(express.json())  
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 
 app.get('/', (req, res) => {
@@ -23,6 +23,28 @@ app.get('/ajax', (req, res) => {
 })
 
 app.post('/ajax', (req, res) => {
+    console.log(req.body);
+    res.send(req.body)
+})
+
+// axios
+app.get('/axios', (req, res) => {
+    console.log(req.query);
+    res.send(req.query)
+})
+
+app.post('/axios', (req, res) => {
+    console.log(req.body);
+    res.send(req.body)
+})
+
+// fetch
+app.get('/fetch', (req, res) => {
+    console.log(req.query);
+    res.send(req.query)
+})
+
+app.post('/fetch', (req, res) => {
     console.log(req.body);
     res.send(req.body)
 })
