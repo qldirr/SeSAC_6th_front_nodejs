@@ -52,28 +52,63 @@
 // 콜백함수 - 다른 함수의 실행이 끝난 뒤에 실행되는 함수, js에서 어떤 함수의 매개변수로 대입되는 함수
 
 // 목표 : 콘솔로그 하나 찍고 3초뒤에 '고민 끝' 이랑 상품명, 가격이 올바르게 출력
-let product, price;
+// let product, price;
 
-function goMart(){
-    console.log('마트에 가서 어떤 음료를 살지 고민');
-}
+// function goMart(){
+//     console.log('마트에 가서 어떤 음료를 살지 고민');
+// }
 
-function pickDrink(callback){
-    // callback 매개변수 : 콜백함수가 들어올 예정
-    setTimeout(function(){
-        console.log('고민 끝');
-        product = '제로 콜라'
-        price = 2000
-        callback(product, price)     // 매개변수로 받은 콜백함수 실행
-    }, 3000)
-}
+// function pickDrink(callback){
+//     // callback 매개변수 : 콜백함수가 들어올 예정
+//     setTimeout(function(){
+//         console.log('고민 끝');
+//         product = '제로 콜라'
+//         price = 2000
+//         callback(product, price)     // 매개변수로 받은 콜백함수 실행
+//     }, 3000)
+// }
 
-function pay(product, price){
-    console.log(`상품명:${product}, 가격:${price}`);
-}
+// function pay(product, price){
+//     console.log(`상품명:${product}, 가격:${price}`);
+// }
 
-goMart();
-pickDrink(pay);
+// goMart();
+// pickDrink(pay);
 // 마트에 가서 어떤 음료를 살지 고민
 // 고민 끝
 // 상품명:제로 콜라, 가격:2000
+
+
+let product, price;
+
+function goMart() {
+  console.log(`마트에 가서 어떤 음료를 살지 고민한다..`);
+}
+
+function pickDrink() {
+  return new Promise((resolve) => {
+    setTimeout(function () {
+      console.log(`고민 끝`);
+      product = `제로콜라`;
+      price = `3000원`;
+      resolve();
+    }, 3000);
+  });
+}
+
+function pay(product, price) {
+  return new Promise((resolve) => {
+    setTimeout(function () {
+      console.log(`상품명: ${product} // 가격: ${price}`);
+      resolve();
+    }, 5000);
+  });
+}
+
+async function exec() {
+  goMart();
+  await pickDrink();
+  await pay(product, price);
+}
+
+exec();
