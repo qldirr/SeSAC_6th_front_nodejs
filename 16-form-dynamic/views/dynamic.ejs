@@ -113,7 +113,7 @@
             // 이름 미입력 -> '이름을 입력해주세요!!'
             if (!form.name.checkValidity()) {
                 resultBox.textContent = '이름을 입력해주세요!!';
-            } else if (!form.gender[0].checkValidity() ) {
+            } else if (!form.gender[0].checkValidity()) {
                 // 성별 미입력 -> '성별을 입력해주세요!!'
                 // 라디오 타입의 input은 둘중 하나라도 check되면 전부 true 출력, 아니면 false 출력
                 resultBox.textContent = '성별을 입력해주세요!!';
@@ -121,8 +121,8 @@
             else {
                 // 이름, 성별 모두 입력 -> 정상적 요청 날리기
                 try {
-                    const res =  await axios({
-                        method : 'get',
+                    const res = await axios({
+                        method: 'get',
                         url: `/axios?name=${form.name.value}&gender=${form.gender.value}`,
                     })
 
@@ -133,7 +133,7 @@
                     console.error('Error-', error);
                     resultBox.textContent = '에러 발생'
                 }
-                
+
                 // axios 비동기 통신(GET 방식, 서버의 app.js 파일로 유저가 브라우저에 입력한 값 보내기)
                 // axios({
                 //     method: 'get',
@@ -174,7 +174,7 @@
                 const res = await axios({
                     method: 'post',
                     url: '/axios',
-                    data, 
+                    data,
                 })
                 const { name, gender } = res.data;
                 resultBox.textContent = `POST /axios 요청에 대한 응답 완료! ${name}님은 ${gender}입니다`
@@ -253,7 +253,7 @@
         }
 
         // 외부 API
-        function getTodos(){
+        function getTodos() {
             fetch('https://jsonplaceholder.typicode.com/todos/10')
                 .then(response => response.json())
                 .then(json => {
