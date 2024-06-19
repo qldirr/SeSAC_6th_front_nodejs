@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- 서버측에서 app.use('/static', express.static(__dirname + '/public')) 로 정적 파일 경로를 설정했으므로 -->
+    <link rel="stylesheet" href="/static/css/thumbnail.css">
 </head>
 <body>
     <h1><%= title %></h1>
@@ -18,10 +24,9 @@
     <h2>Multi File Upload1</h2>
     <form action="/upload/array" method="post" enctype="multipart/form-data">
         <input type="file" name="userfiles" multiple><br>
-        <input type="text" name="title">
         <button type="submit">업로드</button>
     </form>
-
+    
     <h2>Multi File Upload2</h2>
     <form action="/upload/fields" method="post" enctype="multipart/form-data">
         <input type="file" name="userfile1"><br>
@@ -30,5 +35,19 @@
         <input type="text" name="title2"><br>
         <button type="submit">업로드</button>
     </form>
+    
+    <h2>동적 파일 업로드</h2>
+    <input type="text" name="title" placeholder="제목" id="thumbtit"><br>
+    <input type="file" name="thumbnail" id="thumbnail"><br>
+    <button type="button" onclick="uploadThumbnail()">업로드</button>
+    <br>
+
+    <!-- 섬네일 업로드 내용을 바로 업로드 -->
+    <img class="thumbnail" src="" alt=""><br>
+    <div id="thumbnailTitle"></div>
+
+    <!-- 서버측에서 app.use('/static', express.static(__dirname + '/public')) 로 정적 파일 경로를 설정했으므로 -->
+    <script src="/static/js/thumbnail.js"></script>   
+
 </body>
 </html>

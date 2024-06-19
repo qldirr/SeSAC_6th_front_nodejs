@@ -15,6 +15,7 @@ app.use(express.json())
 // 이를 통해 클라이언트는 서버의 특정 디렉토리에 있는 파일을 직접 요청하여 받아올 수 있음, 이 설정은 주로 이미지, CSS 파일, JavaScript 파일 등 정적 자산을 제공할 때 사용
 // 'localhost:port번호/uploads/업로드한 파일명' 을 주소창에 치면 해당 이미지가 보여짐
 app.use('/uploads', express.static(__dirname + '/uploads'))   
+app.use('/static', express.static(__dirname + '/public'))   
 
 // const upload = multer({
 //     dest: 'uploads/'     // dest - 파일을 업로드하고 그 파일이 저장될 경로를 지정하는 속성
@@ -73,12 +74,21 @@ app.post('/upload/array', uploadDetail.array('userfiles'), (req, res) => {
     res.send('success upload! (multiple)')
 })
 
+
 // multer객체.fields() - 여러 파일을 각각의 인풋에 업로드, 파라미터에 name 속성을 배열 안 객체로 넣어주기
 app.post('/upload/fields', uploadDetail.fields([{name: 'userfile1'}, {name: 'userfile2'}]), (req, res) => {
     console.log(req.body);    // { title1: 'wow', title2: 'go' }
     console.log(req.files);   // {userfile1 : [{}, ... ], userfile2 : [{}, ... ]} 형태로 각 파일 정보 저장
-
+    
     res.send('success upload! (multiple2)')
+})
+
+// 동적 폼 업로드
+app.post('/dynamicFile', uploadDetail.single('thumbnail'), (req, res) => {  
+    const title = req.body.title
+    const file = req.file
+    console.log(req.body);
+    res.send({file, title})
 })
 
 app.listen(PORT, () => {
