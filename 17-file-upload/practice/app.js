@@ -30,14 +30,18 @@ const uploadDetail = multer({
 
 
 app.get('/', (req, res) => {
-    console.log(__dirname);
-    res.render('index', { title: '파일 업로드를 배워보자' })
+    res.render('index', { title: '회원가입 동적 파일 업로드' })
 })
 
 app.post('/uploadFile', uploadDetail.single('userfile'), (req, res) => {    
     console.log(req.body); 
-    console.log(req.file);    
-    res.render('uploaded', {userInfo: req.body, src : req.file.path})
+    console.log(req.file);   
+    const id = req.body.id
+    const age = req.body.age
+    const name = req.body.name
+    const file = req.file 
+    // res.render('uploaded', {userInfo: req.body, src : req.file.path})
+    res.send({ id, name, age, file })
     
 })
 

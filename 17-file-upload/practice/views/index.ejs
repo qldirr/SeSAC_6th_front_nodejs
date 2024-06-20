@@ -1,19 +1,103 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        #userId,
+        #userName,
+        #userAge {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1><%= title %></h1>
-    <form action="/uploadFile" method="post" enctype="multipart/form-data">
-        <input type="text" name="id" placeholder="아이디"><br>
-        <input type="password" name="pw" placeholder="비번"><br>
-        <input type="text" name="name" placeholder="이름"><br>
-        <input type="number" name="age" placeholder="나이"><br>
-        <input type="file" name="userfile"><br>
-        <button type="submit">회원가입</button>
-    </form>
+    <h1>
+        <%= title %>
+    </h1>
+    <!-- <form action="/uploadFile" method="post" enctype="multipart/form-data"> -->
+    <input type="text" name="id" placeholder="아이디" id="id"><br>
+    <input type="password" name="pw" placeholder="비번"><br>
+    <input type="text" name="name" placeholder="이름" id="name"><br>
+    <input type="number" name="age" placeholder="나이" id="age"><br>
+    <input type="file" name="userfile" id="userfile"><br>
+    <button onclick="uploadUserinfo()">회원가입</button>
+    <!-- </form> -->
+
+    <div class="profile">
+        <img class="thumbnail" src="" alt=""><br>
+        <div id="userId"></div>
+        <div id="userName"></div>
+        <div id="userAge"></div>
+    </div>
 </body>
+<script>
+    async function uploadUserinfo() {
+        // FormData 객체 - 폼 전송시 멀티미디어 파일을 비동기로 제출하고 싶으면 FormData 객체 이용
+        const formData = new FormData()
+
+        // 폼 요소 선택
+        const fileInput = document.querySelector('#userfile')
+        const userId = document.querySelector('#id').value
+        const userName = document.querySelector('#name').value
+        const userAge = document.querySelector('#age').value
+
+        console.dir(userId)
+        console.dir(userName)
+        console.dir(userAge)
+        console.dir(fileInput)
+        console.dir(fileInput.files)     // 업로드한 파일 정보
+
+        // FormData에 업로드한 파일 정보 추가, 키와 값 추가
+        // 키에는 입력받는 input태그의 name속성과 이름을 맞추는것이 자동 매핑이 되어 편함
+        formData.append('id', userId)
+        formData.append('age', userAge)
+        formData.append('name', userName)
+        formData.append('userfile', fileInput.files[0])
+        // console.log(formData);     // FormData는 특수한 형태의 객체이기 때문에 쉽게 출력되지 않음
+
+        try {
+            const result = await axios({
+                method: 'post',
+                url: '/uploadFile',
+                data: formData,
+                // key
+                headers: {
+                    'Content-Type': 'multipart/form-data'    // form 태그 내 enctype="multipart/form-data" 와 비슷
+                }
+            })
+            console.log('res', result);
+            const img = document.querySelector('img')
+            img.src = `/${result.data.file.path}`
+            img.style.width = '200px'
+            img.style.height = '200px'
+            img.style.borderRadius = '50%'
+            img.style.boxShadow = '0 0 20px #0002'
+
+            document.querySelector('#userId').textContent = `${result.data.id}`
+            document.querySelector('#userName').textContent = `${result.data.name}`
+            document.querySelector('#userAge').textContent = `${result.data.age}`
+
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
+</script>
+
 </html>
