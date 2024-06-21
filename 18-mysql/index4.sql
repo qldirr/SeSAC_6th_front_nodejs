@@ -44,6 +44,7 @@ insert into instructor values (3, 'mark', '수학', 75000);
 insert into instructor values (4, 'tom', '심리', 90000);
 insert into teaches values (3, '인공지능', '봄', '2022');
 insert into teaches values (4, '사회심리', '가을', '2023');
+
 insert into teaches values (5, '네트워크', '봄', '2022');
 insert into teaches values (6, '알고리즘', '가을', '2023');
 
