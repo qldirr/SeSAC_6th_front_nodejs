@@ -36,7 +36,7 @@ exports.getVisitor = (targetId, callback) => {
 }
 
 // 방명록 추가
-exports.postVisitor = (data, callback) => {
+exports.postVisitor = (data, callback) => {   // 값이 문자열인 데이터는 '' 붙이기
     conn.query(`insert into visitor(name, comment) values('${data.name}','${data.comment}')`, (err, rows) => {
         if (err) {
             throw err;

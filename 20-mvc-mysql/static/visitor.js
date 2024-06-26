@@ -1,15 +1,16 @@
 
 const tbody = document.querySelector('tbody')
+
+// 폼안에 있는 등록 버튼이 있는 div 태그 선택
 const buttonGroup = document.querySelector('#button-group')
 
 // 폼의 등록버튼 클릭 시 POST /visitor 요청
 async function createVisitor() {
-    console.log('click');
-
     const form = document.forms['visitor-form']
     console.log('form', form);
     console.log('form.name', form.name);
 
+    // 방명록 추가
     try {
         const res = await axios({
             method: 'post',
@@ -53,6 +54,7 @@ async function deleteVisitor(obj, id) {
         return;    // deleteVisitor 함수 종료 -> 백으로 요청 X
     }
 
+    // 방명록 삭제
     try {
         const res = await axios({
             method: 'delete',
@@ -76,6 +78,7 @@ async function deleteVisitor(obj, id) {
 
 // 수정 버튼 클릭시 form input에 value 넣고 변경/취소 버튼 보여주기
 async function editVisitor(id) {
+    // 방명록 조회
     try {
         const res = await axios({
             method: 'get',
@@ -100,6 +103,8 @@ async function editVisitor(id) {
 // 수정 버튼 누르고 데이터 변경 하고 변경 버튼 클릭시 데이터 수정 요청 보내기
 async function editDo(id) {
     const form = document.forms['visitor-form']
+
+    // 방명록 수정
     try {
         const res = await axios({
             method: 'patch',
@@ -115,7 +120,7 @@ async function editDo(id) {
             alert('수정 성공')
             // 한행 선택(tr 태그 하나)
             const children = document.querySelector(`#tr_${id}`).children
-            // children 이 tr태그 안에 총 5개가 있음
+            // children 이 tr태그 안에 총 5개가 있음 -> 해당 children에 입력받은 값을 대입
             children[1].textContent = form.name.value    // 두번째 열(이름)
             children[2].textContent = form.comment.value   // 세번째 열(방명록)
 
