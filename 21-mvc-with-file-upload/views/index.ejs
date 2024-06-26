@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +12,11 @@
     <!-- 서버측에서 app.use('/static', express.static(__dirname + '/public')) 로 정적 파일 경로를 설정했으므로 -->
     <link rel="stylesheet" href="/static/css/thumbnail.css">
 </head>
+
 <body>
-    <h1><%= title %></h1>
+    <h1>
+        <%= title %>
+    </h1>
     <h2>Single File Upload</h2>
     <!-- multer 이용시 반드시 enctype="multipart/form-data" 속성을 가진 폼이어야함 -->
     <form action="/upload" method="post" enctype="multipart/form-data">
@@ -20,13 +24,13 @@
         <input type="text" name="title">
         <button type="submit">업로드</button>
     </form>
-    
+
     <h2>Multi File Upload1</h2>
     <form action="/upload/array" method="post" enctype="multipart/form-data">
         <input type="file" name="userfiles" multiple><br>
         <button type="submit">업로드</button>
     </form>
-    
+
     <h2>Multi File Upload2</h2>
     <form action="/upload/fields" method="post" enctype="multipart/form-data">
         <input type="file" name="userfile1"><br>
@@ -35,7 +39,7 @@
         <input type="text" name="title2"><br>
         <button type="submit">업로드</button>
     </form>
-    
+
     <h2>동적 파일 업로드</h2>
     <input type="text" name="title" placeholder="제목" id="thumbtit"><br>
     <input type="file" name="thumbnail" id="thumbnail"><br>
@@ -47,48 +51,48 @@
     <div id="thumbnailTitle"></div>
 
     <!-- 서버측에서 app.use('/static', express.static(__dirname + '/public')) 로 정적 파일 경로를 설정했으므로 -->
-    <script src="/static/js/thumbnail.js"></script>   
+    <script src="/static/js/thumbnail.js"></script>
 
     <script>
-        console.log('!');
 
-async function uploadThumbnail() {
-    // FormData 객체 - 폼 전송시 멀티미디어 파일을 비동기로 제출하고 싶으면 FormData 객체 이용
-    const formData = new FormData()
+        async function uploadThumbnail() {
+            // FormData 객체 - 폼 전송시 멀티미디어 파일을 비동기로 제출하고 싶으면 FormData 객체 이용
+            const formData = new FormData()
 
-    // 폼 요소 선택
-    const fileInput = document.querySelector('#thumbnail')
-    const inputTitle = document.querySelector('#thumbtit').value
+            // 폼 요소 선택
+            const fileInput = document.querySelector('#thumbnail')
+            const inputTitle = document.querySelector('#thumbtit').value
 
-    console.dir(inputTitle)
-    console.dir(fileInput)
-    console.dir(fileInput.files)     // 업로드한 파일 정보
+            console.dir(inputTitle)
+            console.dir(fileInput)
+            console.dir(fileInput.files)     // 업로드한 파일 정보
 
-    // FormData에 업로드한 파일 정보 추가
-    formData.append('title', inputTitle)
-    formData.append('thumbnail', fileInput.files[0])
-    // console.log(formData);     // FormData는 특수한 형태의 객체이기 때문에 쉽게 출력되지 않음
+            // FormData에 업로드한 파일 정보 추가
+            formData.append('title', inputTitle)
+            formData.append('thumbnail', fileInput.files[0])
+            // console.log(formData);     // FormData는 특수한 형태의 객체이기 때문에 쉽게 출력되지 않음
 
-    try {
-        const result = await axios({
-            method: 'post',
-            url: '/dynamicFile',
-            data: formData,
-            // key
-            headers: {
-                'Content-Type': 'multipart/form-data'    // form 태그 내 enctype="multipart/form-data" 와 비슷
+            try {
+                const result = await axios({
+                    method: 'post',
+                    url: '/dynamicFile',
+                    data: formData,
+                    // key
+                    headers: {
+                        'Content-Type': 'multipart/form-data'    // form 태그 내 enctype="multipart/form-data" 와 비슷
+                    }
+                })
+                console.log('res', result);
+                document.querySelector('img').src = `/${result.data.file.path}`     // 이미지 경로를 img태그에 넣기
+                // thumbnail.css 에서 작성한 코드 적용
+                document.querySelector('img').classList.add('thumbnail')   // img태그에 thumbnail 클래스명 부여
+                document.querySelector('#thumbnailTitle').textContent = `${result.data.title}`
+            } catch (error) {
+                console.error(error)
             }
-        })
-        console.log('res', result);
-        document.querySelector('img').src = `/${result.data.file.path}`     // 이미지 경로를 img태그에 넣기
-        // thumbnail.css 에서 작성한 코드 적용
-        document.querySelector('img').classList.add('thumbnail')   // img태그에 thumbnail 클래스명 부여
-        document.querySelector('#thumbnailTitle').textContent = `${result.data.title}`
-    } catch (error) {
-        console.error(error)
-    }
-}
+        }
     </script>
 
 </body>
+
 </html>
