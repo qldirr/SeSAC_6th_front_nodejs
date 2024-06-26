@@ -19,8 +19,15 @@ exports.getVisitors = (req, res) => {
     })
 };
 
-exports.postVisitor = (req,res) => {
-    console.log('req.body',req.body);
+exports.getVisitor = (req, res) => {
+    console.log('req.params.id', req.params.id);    // url 뒤의 /:id 는 req.params에서 가져옴
+    Visitor.getVisitor(req.params.id, (result) => {
+        res.send(result)
+    })
+}
+
+exports.postVisitor = (req, res) => {
+    console.log('req.body', req.body);
     Visitor.postVisitor(req.body, (result) => {   // req.body는 입력받은 name과 comment를 가짐
         // result 파라미터는 Visitor.js 의 postVisitor 함수의 callback(rows.insertId)의 'rows.insertId' 변수에 대응
         console.log('Cvisitor.js:', result);    // result = rows.insertId 는 새로 입력받은 row의 pk
@@ -32,3 +39,22 @@ exports.postVisitor = (req,res) => {
 
     })
 }
+
+exports.deleteVisitor = (req, res) => {
+    console.log('req.body', req.body);
+    Visitor.deleteVisitor(req.body.id, (result) => {
+        console.log('Cvisitor.js:', result);    // 삭제가 되었다면 true
+
+        res.send({ result })   // {result : result}
+    })
+}
+
+exports.patchVisitor = (req, res) => {
+    console.log('req.body', req.body);   // { id: 1, name: '홍길동', comment: '내가 왔다1' }
+    Visitor.patchVisitor(req.body, (result) => {
+        console.log('Cvisitor.js:', result);   // 수정되었다면 true
+
+        res.send({ result })   // {result : result}
+    })
+}
+

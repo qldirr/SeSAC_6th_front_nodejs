@@ -10,6 +10,7 @@ select * from visitor;
 
 insert into visitor values(null, '홍길동', '내가 왔다'),
 							(null, '이찬혁', '으라차차');
+insert into visitor values(null, '이수현', '아뵤');
                             
 -- 사용자 추가
 create user 'user'@'%' identified by '1234';
@@ -19,7 +20,7 @@ grant all privileges on *.* to 'user'@'%' with grant option;
 flush privileges;
 
 -- 비번 변경
-alter user 'user'@'%' identified with mysql_native_password by '비번';
+alter user 'user'@'%' identified with mysql_native_password by '1234';
 
 -- 계정 생성 확인
 select * from mysql.user;    
