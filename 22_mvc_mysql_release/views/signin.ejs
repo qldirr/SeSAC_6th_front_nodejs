@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <%- include('include/include', { title: '로그인' })%>
+
+<%- include('include/include', { title: '로그인' })%>
+
   <body>
     <h1>로그인</h1>
     <!-- 
@@ -21,12 +23,49 @@
     </form>
 
     <!-- TODO: href 속성값 설정하기 -->
-    <a href="#">Register</a>
+    <a href="/user/signup">Register</a>
 
     <script>
       // TODO: [Login] 버튼 클릭시 서버에 로그인 요청하기
       // POST /user/signin
-      function login() {}
+      async function login() {
+        const loginForm = document.forms['form_login']
+        const infoForm = document.forms['form_info']
+
+        if (!loginForm.checkValidity()) {
+          loginForm.reportValidity()
+          return
+        }
+        
+        try {
+          const res = await axios({
+            method: 'post',
+            url: `/user/signin`,
+            data: {
+              userid: loginForm.userid.value,
+              pw: loginForm.pw.value
+            }
+          })
+          console.log('res', res.data);
+          const { data } = res.data
+
+          if (data) {
+            alert('로그인 성공')
+            infoForm.userid.value = loginForm.userid.value
+            infoForm.submit();
+            infoForm.reset();
+          }
+          else {
+            alert('로그인 실패')
+            loginForm.userid.value = ''
+            loginForm.pw.value = ''
+          }
+
+        } catch (error) {
+          console.error(error)
+        }
+      }
     </script>
   </body>
+
 </html>
