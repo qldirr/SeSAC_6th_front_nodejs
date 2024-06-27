@@ -26,8 +26,22 @@
           form.reportValidity()
           return
         }
-        
+
         try {
+          const res2 = await axios({
+            method: 'post',
+            url: `/user/signin`,
+            data: {
+              userid: form.userid.value,
+            }
+          })
+          console.log('res2', res2.data);
+          const { data } = res2
+          if (data && Object.keys(data).length > 0) {
+            alert('이미 존재하는 아이디입니다')
+            return
+          }
+          
           const res = await axios({
             method: 'post',
             url: `/user/signup`,
