@@ -11,7 +11,8 @@ router.get('/', controller.main);
 router.get('/visitors', controller.getVisitors); // 리스트 조회
 
 // GET /visitor/:id
-router.get('/visitor/:id', controller.getVisitor)   // 조회
+// router.get('/visitor/:id', controller.getVisitor)   // 조회, req.params 사용
+router.get('/visitor', controller.getVisitor)   // 조회, req.query
 
 // POST /visitor => localhost:PORT/visitor
 router.post('/visitor', controller.postVisitor); // 추가

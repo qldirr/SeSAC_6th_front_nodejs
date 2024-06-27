@@ -21,8 +21,12 @@ exports.getVisitors = (req, res) => {
 
 // 방명록 조회
 exports.getVisitor = (req, res) => {
-    console.log('req.params.id', req.params.id);    // url 뒤의 /:id 는 req.params에서 가져옴
-    Visitor.getVisitor(req.params.id, (result) => {
+    // console.log('req.params.id', req.params.id);    // url 뒤의 /:id 는 req.params에서 가져옴
+    // Visitor.getVisitor(req.params.id, (result) => {
+    //     res.send(result)
+    // })
+    console.log('req.query.id', req.query.id);     // url 뒤의 queryString 사용  
+    Visitor.getVisitor(req.query.id, (result) => {
         res.send(result)
     })
 }

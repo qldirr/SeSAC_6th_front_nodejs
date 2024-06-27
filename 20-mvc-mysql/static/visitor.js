@@ -82,7 +82,8 @@ async function editVisitor(id) {
     try {
         const res = await axios({
             method: 'get',
-            url: `/visitor/${id}`,
+            // url: `/visitor/${id}`,    // 서버에서 req.params.id 사용
+            url: `/visitor?id=${id}`,    // 서버에서 req.query.id 사용
         })
         console.log('res', res.data);
         const { name, comment } = res.data
