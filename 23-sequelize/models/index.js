@@ -12,28 +12,40 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 const PlayerModel = require('./Player')(sequelize, Sequelize)   // player 모델의 파라미터로 전달
 const TeamModel = require('./Team')(sequelize, Sequelize)   // team 모델의 파라미터로 전달
 const ProfileModel = require('./Profile')(sequelize, Sequelize)   // profile 모델의 파라미터로 전달
+const GameModel = require('./Game')(sequelize, Sequelize)   // profile 모델의 파라미터로 전달
+const TeamGameModel = require('./TeamGame')(sequelize, Sequelize)   // profile 모델의 파라미터로 전달
 
 
 // 관계 연결
-// player : profile = 1:1
+// 1. player : profile = 1:1
 PlayerModel.hasOne(ProfileModel, {
   // CASCADE 옵션으로 player가 삭제/수정되면 profile도 함께 삭제/수정
   onDelete : 'CASCADE',   
   onUpdate : 'CASCADE',
 
   // ProfileModel에 'player_id' 이름의 fk 생성
-  foreignKey : 'player_id',
+  foreignKey : 'player_id',    
+  // foreignKey : {
+  //   name : 'player_id',
+  //   allowNull : false
+  // },
+
   // PlayerModel 의 'player_id' 컬럼 참조
   sourceKey : 'player_id',
 })
 ProfileModel.belongsTo(PlayerModel, {    // profile(자식 테이블), player(부모 테이블)
   // ProfileModel 의 'player_id' 라는 fk 생성
   foreignKey : 'player_id',
+  // foreignKey : {
+  //   name : 'player_id',
+  //   allowNull : false
+  // },
+
   // 참조할 PlayerModel 의 키는 'player_id'
   targetKey : 'player_id',
 })
 
-// team : player = 1:N
+// 2. team : player = 1:N
 TeamModel.hasMany(PlayerModel, {
   // PlayerModel 에 'team_id' fk 생성
   foreignKey : 'team_id',
@@ -47,6 +59,17 @@ PlayerModel.belongsTo(TeamModel, {
   targetKey : 'team_id',
 })
 
+// 3. team : game = N : M
+TeamModel.belongsToMany(GameModel, {
+  through : TeamGameModel,    // 중계(관계) 테이블
+  foreignKey : 'team_id',   // TeamGameModel 에서 TeamModel 을 참조하는 fk
+  otherKey : 'game_id'    // TeamGameModel 에서 GameModel 을 참조하는 fk
+})
+GameModel.belongsToMany(TeamModel, {
+  through : TeamGameModel,   // 중계(관계) 테이블
+  foreignKey : 'game_id',   // TeamGameModel 에서 GameModel 을 참조하는 fk
+  otherKey : 'team_id'    // TeamGameModel 에서 TeamModel 을 참조하는 fk
+})
 
 
 

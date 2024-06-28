@@ -22,7 +22,7 @@ const playerModel = (sequelize, DataTypes) => {
     },
         {
             freezeTableName: true,   // 테이블명을 복수로 설정하지 않음(고정한다) -> players 가 아닌 player 라고 테이블명 설정
-            // timestamps : false    // 데이터 추가 및 수정 시간을 자동으로 컬럼 생성해 기록(createdAt, updatedAt)
+            // timestamps : false    // 데이터 추가 및 수정 시간을 자동으로 컬럼 생성해 기록(createdAt, updatedAt), 생성/수정시 해당 컬럼이 자동으로 업데이트
         }
     )
 
