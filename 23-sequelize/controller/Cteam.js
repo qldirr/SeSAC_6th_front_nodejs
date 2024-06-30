@@ -1,5 +1,5 @@
-const { Op, where } = require('sequelize')
-const { Team, Player } = require('../models/index')
+const { Op } = require('sequelize')
+const { Team, Player, TeamGame, Game, sequelize } = require('../models/index')
 
 //팀 목록 조회
 exports.getTeamList = async (req, res) => {
@@ -73,5 +73,54 @@ exports.getTeamPlayerList = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error')
+    }
+}
+
+// 특정 팀의 게임 정보 조회
+exports.getTeamGameList = async (req, res) => {
+    try {
+        const { team_id } = req.params
+        const teamGame = await TeamGame.findAll({
+            where: {
+                team_id   // where 조건을 걸 컬럼명, player_id : player_id
+            },
+            // join
+            include: [
+                {
+                    model: Game,    // join 할 모델
+                    // as: 'game',
+                    attributes: ['location', 'date']    // 조회할 컬럼명
+                },
+                {
+                    model: Team,
+                    // as: 'team',
+                    attributes: ['name']
+                }
+            ]
+        })
+        res.json(teamGame)
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error')
+
+    }
+}
+
+// 팀별로 게임 개수 구하기
+exports.getTeamGameCount = async (req, res) => {
+    try {
+        const gameCount = await TeamGame.findAll({
+            attributes: [
+                'team_id',
+                [sequelize.fn('COUNT', sequelize.col('game_id')), 'game_count']
+            ],
+            group: 'team_id'
+        })
+        res.json(gameCount)
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error')
+
     }
 }

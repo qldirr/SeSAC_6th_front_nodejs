@@ -12,8 +12,8 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 const PlayerModel = require('./Player')(sequelize, Sequelize)   // player 모델의 파라미터로 전달
 const TeamModel = require('./Team')(sequelize, Sequelize)   // team 모델의 파라미터로 전달
 const ProfileModel = require('./Profile')(sequelize, Sequelize)   // profile 모델의 파라미터로 전달
-const GameModel = require('./Game')(sequelize, Sequelize)   // profile 모델의 파라미터로 전달
-const TeamGameModel = require('./TeamGame')(sequelize, Sequelize)   // profile 모델의 파라미터로 전달
+const GameModel = require('./Game')(sequelize, Sequelize)   // game 모델의 파라미터로 전달
+const TeamGameModel = require('./TeamGame')(sequelize, Sequelize)   // teamgame 모델의 파라미터로 전달
 
 
 // 관계 연결
@@ -59,18 +59,29 @@ PlayerModel.belongsTo(TeamModel, {
   targetKey : 'team_id',
 })
 
-// 3. team : game = N : M
+// 3) Team : Game = N : M
+// 하나의 팀은 여러 게임 가능, 한 게임에는 여러 팀이 참여
+// 두 모델의 관계 모델은 TeamGameModel
 TeamModel.belongsToMany(GameModel, {
-  through : TeamGameModel,    // 중계(관계) 테이블
-  foreignKey : 'team_id',   // TeamGameModel 에서 TeamModel 을 참조하는 fk
-  otherKey : 'game_id'    // TeamGameModel 에서 GameModel 을 참조하는 fk
-})
+  through: TeamGameModel, // 중계(관계) 테이블
+  foreignKey: 'team_id', // TeamGameModel에서 TeamModel을 참조하는 fk
+  otherKey: 'game_id', // TeamGameModel에서 GameModel을 참조하는 fk
+  // as: 'games'
+});
 GameModel.belongsToMany(TeamModel, {
-  through : TeamGameModel,   // 중계(관계) 테이블
-  foreignKey : 'game_id',   // TeamGameModel 에서 GameModel 을 참조하는 fk
-  otherKey : 'team_id'    // TeamGameModel 에서 TeamModel 을 참조하는 fk
+  through: TeamGameModel, // 중계(관계) 테이블
+  foreignKey: 'game_id', // TeamGameModel에서 GameModel을 참조하는 fk
+  otherKey: 'team_id',  // TeamGameModel에서 TeamModel을 참조하는 fk
+  // as: 'teams'
+});
+TeamGameModel.belongsTo(TeamModel, {
+  foreignKey: 'team_id',
+  // as : 'team'
 })
-
+TeamGameModel.belongsTo(GameModel, {
+  foreignKey: 'game_id',
+  // as : 'game'
+})
 
 
 db.sequelize = sequelize;
@@ -85,6 +96,8 @@ db.Team = TeamModel
 // db = { sequelize : sequelize, Sequelize : Sequelize, Player : PlayerModel, Team : TeamModel }
 db.Profile = ProfileModel
 // db = { sequelize : sequelize, Sequelize : Sequelize, Player : PlayerModel, Team : TeamModel, Profile : ProfileModel }
+db.TeamGame = TeamGameModel
+db.Game = GameModel
 
 // db 객체를 내보내기 -> 다른 파일에서 db모듈 사용 예정
 module.exports = db;

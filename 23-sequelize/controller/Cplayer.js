@@ -4,7 +4,7 @@ const { Player, Profile } = require('../models/index')    // db객체를 내보�
 exports.getPlayerList = async (req, res) => {
     try {
         const playerList = await Player.findAll()    // select * from player
-        res.json(playerList)
+        res.render('players', { data: playerList })
     } catch (err) {
         console.error(err);
         res.status(500).send('Internal Server Error')
@@ -62,7 +62,7 @@ exports.updatePlayerTeam = async (req, res) => {
             {
                 where: {  // 조건
                     player_id   // player_id : player_id
-                }   
+                }
             }
         )
         res.json(updatePlayerTeam)   // return 값이 true(1)/false(0)
@@ -92,5 +92,33 @@ exports.deletePlayer = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error')
+    }
+}
+
+// 선수 정보를 조회(한 페이지에 4개씩, 첫번째 페이지)
+exports.getPlayerListPaging = async (req, res) => {
+    try {
+        const { page, pageSize } = req.params   // 계산해야하므로 숫자형으로 변형
+        const pageNumber = parseInt(page, 10) || 1   // 몇번째 페이지 보여줄지
+        const size = parseInt(pageSize, 10) || 4    // 한 페이지에 몇개씩 보여줄지
+        const pagePlayers = await Player.findAndCountAll({
+            offset: (pageNumber - 1) * size,    // 몇번째 페이지 보여줄지
+            limit: size    // 한 페이지에 출력할 데이터 개수
+        })
+        res.json(pagePlayers.rows)
+        console.log(pagePlayers);
+        // {
+        //     count: 8,
+        //     rows: [
+        //       Player {},
+        //       Player {},
+        //       Player {},
+        //       Player {}
+        //     ]
+        //   }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error')
+
     }
 }

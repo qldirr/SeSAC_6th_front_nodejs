@@ -20,4 +20,7 @@ router.patch('/:player_id/team', controller.updatePlayerTeam)
 // 선수 삭제
 router.delete('/:player_id', controller.deletePlayer)
 
+// 선수 정보를 조회(한 페이지에 4개씩, 첫번째 페이지)
+router.get('/:pageSize/:page', controller.getPlayerListPaging)
+
 module.exports = router

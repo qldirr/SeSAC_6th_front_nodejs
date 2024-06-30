@@ -14,10 +14,10 @@ router.get('/:team_id', controller.getTeam)
 // 특정 팀의 모든 선수 조회
 router.get('/:team_id/players', controller.getTeamPlayerList)
 
-// // 특정 선수의 소속 팀 변경
-// router.patch('/:player_id/team', controller.updatePlayerTeam)
+// 특정 팀의 게임 정보 조회
+router.get('/:team_id/game', controller.getTeamGameList)
 
-// // 선수 삭제
-// router.delete('/:player_id', controller.deletePlayer)
+// 팀별로 게임 개수 구하기
+router.get('/gamecount', controller.getTeamGameCount)
 
 module.exports = router
