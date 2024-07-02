@@ -59,6 +59,30 @@ exports.deleteUser = (req, res) => {
     console.log('req.body', req.body);
     User.deleteUser(req.body, (result) => {
         console.log('controller/deleteuser', result);
-        res.send({result})
+        res.send({ result })
     })
+}
+
+// 세션을 사용한 로그인
+exports.sessionLogin = (req, res) => {
+    console.log('session req.body --', req.body);
+    if (req.session.loggedin) {
+        res.render('session', { userid: req.session.userid })
+    }
+    else {
+        req.session.userid = req.body.userid
+        req.session.pw = req.body.pw
+        User.getUser(req.session, (result) => {
+
+            if (result) {
+                req.session.loggedin = true
+                console.log('controller/sessionlogin', result);
+                res.render('session', { userid: req.session.userid })
+            } else {
+                req.session.loggedin = false
+                res.send(`<script> alert('로그인 실패'); history.back() </script> `)
+            }
+        })
+    }
+
 }
