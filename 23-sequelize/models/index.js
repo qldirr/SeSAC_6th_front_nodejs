@@ -1,7 +1,16 @@
 const Sequelize = require('sequelize');     // sequelize 패키지 불러오기
 
-// config.json 파일의 development 키를 가진 객체를 찾아서 대입, db 연결 정보
-const config = require(__dirname + '/../config/config.json')["development"];    
+// db 연결 정보
+const config = require(__dirname + '/../config/config.js');  
+console.log('config', config);  
+// config {
+//   username: 'user',
+//   password: '1234',
+//   database: 'codingon',
+//   host: '127.0.0.1',
+//   dialect: 'mysql'
+// }
+
 const db = {};   // 빈 객체
 
 // config 안에 있는 데이터를 가지고 새로은 Sequelize 객체 생성
