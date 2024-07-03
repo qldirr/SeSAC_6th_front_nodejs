@@ -2,7 +2,7 @@
   "development": {
     "username": "user",
     "password": "1234",
-    "database": "codingon",
+    "database": "codingonexample",
     "host": "127.0.0.1",    
     "dialect": "mysql"
   },

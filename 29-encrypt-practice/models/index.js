@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');     // sequelize 패키지 불러오기
 
 // db 연결 정보
 const config = require(__dirname + '/../config/config.json')['development']; 
-console.log('config', config); 
 
 const db = {};   // 빈 객체
 
