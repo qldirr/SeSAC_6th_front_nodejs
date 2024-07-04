@@ -1,4 +1,5 @@
 const { Member } = require('../models/index')
+const bcrypt = require('../utils/encrypt')
 
 // 메인 페이지 이동 
 exports.main = (req, res) => {
@@ -39,24 +40,54 @@ exports.getUserListPage = (req, res) => {
 // // router.get('/userList', controller.getUserList)
 
 // // 로그인 메서드
-// exports.login = async (req, res) => {
+exports.login = async (req, res) => {
+    try {
+        const { userid, pw } = req.body
+        console.log('userid---', userid, ',,,pw---', pw);
+        // 비번 암호화
+        const hashedPw = bcrypt.hashPw(pw)
+        console.log('hashedPw-', hashedPw);
+        const loginUser = await Member.findOne({
+            where: {
+                userid
+            }
+        })
+        // console.log('loginUser------',res.json(loginUser)); 
+        // res.json(loginUser)
+        if (!loginUser) return res.status(400).json({ result: false, message: 'User not found' });
 
-// }
+        // 비번 비교
+        const isMatched = await bcrypt.comparePw(pw, loginUser.pw)
+        console.log('ismatched,,,,,,,', isMatched);
+
+        if (isMatched) {
+            console.log('true');
+            res.send({ result: true, loginUser })
+        } 
+        else {
+            console.log('false');
+            res.status(400).json({ result: false, message: 'Incorrect password' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error')
+    }
+}
 // // router.post('/login', controller.login)
 
 // // 회원 가입 메서드
 exports.register = async (req, res) => {
     try {
-        // const { name, comment } = req.body
-        // const newVisitor = await Visitor.create({    // 테이블에 명시된 컬럼 순서 그대로
-        //     name, comment
-        // })
         const { userid, pw, name } = req.body
+        console.log('pw', pw);
+        // 비번 암호화
+        const hashedPw = bcrypt.hashPw(pw)
+        console.log('hashedPw', hashedPw);
         const insertMember = await Member.create({
-            name, pw, userid
+            name, pw: hashedPw, userid
         })
         console.log('insertUser >>>>>> ', insertMember);
-        
+
         res.json({ result: true })
         // res.redirect('/member')
     } catch (error) {

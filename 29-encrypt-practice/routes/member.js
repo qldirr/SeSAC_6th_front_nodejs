@@ -23,7 +23,7 @@ router.get('/userListPage', controller.getUserListPage)
 // router.get('/userList', controller.getUserList)
 
 // // 로그인 메서드
-// router.post('/login', controller.login)
+router.post('/login', controller.login)
 
 // // 회원 가입 메서드
 router.post('/register', controller.register)
