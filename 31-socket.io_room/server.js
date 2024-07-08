@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 function getUserList(room) {
     // room에 접속한 모든 사용자 정보를 저장할 배열 초기화.
-    const users = [];
+    const users =[];
 
     // room는 접속 한 룸 id
     // 특정 채팅방에 접속한 socket.id 집합 값을 찾음
@@ -48,7 +48,7 @@ function getUserList(room) {
     // - 위 객체에서 특정 방(room) ID에 해당하는 정보를 가져오는 역할 :: 해당 방에 접속한 클라이언트들의 소켓 ID 들을 Set형태로 반환.
 
     // 방에 클라이언트가 있는 경우에 실행!
-    if (clients) {
+    if(clients) {
         // 각 socket.ID에 대해 반복 실행
         clients.forEach((client) => {
             console.log("client >>>>> ", client);
@@ -59,19 +59,21 @@ function getUserList(room) {
             // console.log("userSocket >>>> ", userSocket);
 
             // 사용자 정보 객체 생성
-            const info = { userName: userSocket.userName, key: client }
+            const info = {userName : userSocket.userName, key: client}
 
             // 사용자 정보를 배열에 추가
             users.push(info);
         })
     }
-    return users;
+    return users; 
     // users = [{userName: "Ace", key:"1234"}, {userName:"Bob", key:"5678"}]
 
 }
 
 
-
+// [5] 채팅방 리스트
+// 채팅방 목록 초기화
+const roomList = [];
 
 
 io.on('connection', (socket) => {
@@ -79,7 +81,11 @@ io.on('connection', (socket) => {
     // io : 접속해 있는 모든 웹 브라우저
     // 웹 브라우저가 접속이 되면 고유한 id 값이 생성됨.
     // ==> socket.id 로 확인 가능.
-    console.log("서버 연결 완료 ::", socket.id);
+    console.log("서버 연결 완료 ::" , socket.id);
+
+    // [5] 채팅방 목록 미리보기
+    // 전부에게 보여져야함.
+    io.emit('roomList', roomList);
 
     // [2] 채팅방 만들기
     socket.on('create', (res) => {
@@ -88,7 +94,7 @@ io.on('connection', (socket) => {
 
         // join(방 제목) : 해당 방 제목이 없으면 생성, 존재하면 입장.
         console.log(res.roomName); // 새싹
-        socket.join(res.roomName);
+        socket.join(res.roomName); 
         console.log('방 생성 후', socket.rooms);
 
         // 사용자 정보 저장 = socket 객체 안에 원하는 값을 할당.
@@ -104,9 +110,34 @@ io.on('connection', (socket) => {
         const userList = getUserList(res.roomName);
         console.log('userList >>>> ', userList);
         io.to(res.roomName).emit('userList', userList)
+
+        // [5] 채팅방 목록 갱신
+        if (!roomList.includes(res.roomName)) {
+            // 중복이 아니라면 추가!
+            roomList.push(res.roomName);
+            // 갱신 된 목록 
+            console.log("res.roomName [5] >>>>> ", roomList);
+            io.emit('roomList', roomList);
+        }
     })
 
-
+    // [6] 메시지 전송
+    socket.on('sendMessage', (res) => {
+        console.log('sendMessage >>> ', res); // { message: '안녕', user: '꼬부기', select: 'all' }
+        const { message, user, select } = res; // 구조 분해 할당 
+        // res 객체에서 속성 추출하여 각각 변수에 할당.
+        if (select === 'all') {
+            // 특정 방에 전체 사용자에게 메세지 보내기
+            io.to(socket.roomName).emit('newMessage', { message, user, dm: false });
+        } else {
+            // 특정 방에 DM 대상자에게 메세지 보내기
+            io.to(select).emit('newMessage', {message, user, dm: true});
+            // 자기 자신에게 메세지 보내기 (나한테서 보이게)
+            socket.emit('newMessage', {message, user, dm: true})
+            
+        }
+    })
+    
 })
 
 
